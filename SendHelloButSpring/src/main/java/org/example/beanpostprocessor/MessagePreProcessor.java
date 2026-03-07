@@ -1,6 +1,6 @@
-package org.example.sendmessage;
+package org.example.beanpostprocessor;
 
-public class Message {
+public class MessagePreProcessor {
     private String message;
 
     public String getMessage() {
