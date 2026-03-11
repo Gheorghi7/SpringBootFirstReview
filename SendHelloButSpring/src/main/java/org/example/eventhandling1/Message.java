@@ -1,4 +1,4 @@
-package org.example.eventhandling;
+package org.example.eventhandling1;
 
 public class Message {
     private String message;

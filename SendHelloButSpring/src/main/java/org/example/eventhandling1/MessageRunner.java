@@ -1,6 +1,5 @@
-package org.example.eventhandling;
+package org.example.eventhandling1;
 
-import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
