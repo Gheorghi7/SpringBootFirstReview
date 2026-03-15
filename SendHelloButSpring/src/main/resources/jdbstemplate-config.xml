@@ -1,0 +1,28 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd "
+>
+    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer"/>
+
+    <!-- Data source initialization -->
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/developers"/>
+        <property name="username" value="${MY_LOG:default_log}"/>
+        <property name="password" value="${MY_PASS:default_pass}"/>
+    </bean>
+    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <!-- Это заставит Spring искать переменные в Environment Variables и System Properties -->
+        <property name="localOverride" value="true"/>
+    </bean>
+
+    <!-- Here we're defining studentJDBCTemplate bean -->
+    <bean id="jdbsDeveloperDaoTemplate"
+          class="org.example.jdbs.jdbs.JdbsDeveloperDaoTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+</beans>
