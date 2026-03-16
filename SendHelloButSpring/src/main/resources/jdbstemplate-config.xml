@@ -21,7 +21,7 @@
 
     <!-- Here we're defining studentJDBCTemplate bean -->
     <bean id="jdbsDeveloperDaoTemplate"
-          class="org.example.jdbs.jdbs.JdbsDeveloperDaoTemplate">
+          class="org.example.jdbc.jdbs.JdbsDeveloperDaoTemplate">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
