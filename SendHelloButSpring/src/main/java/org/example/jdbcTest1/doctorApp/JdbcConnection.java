@@ -35,8 +35,9 @@ public class JdbcConnection {
 
     public List getTableContent() {
         String sqlQuery = "SELECT id, doctorName, doctorIdentityCode, referral, price FROM doctor";
-        return jdbcTemplate.query(sqlQuery,
+        List query = jdbcTemplate.query(sqlQuery,
                 new DoctorMapped());
+        return query;
     }
 
 

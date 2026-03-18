@@ -59,4 +59,14 @@ public class Doctor {
                 ", price=" + price +
                 '}';
     }
+
+    public Doctor(String doctorName, Long doctorIdentityCode, String referral, int price) {
+        this.doctorName = doctorName;
+        this.doctorIdentityCode = doctorIdentityCode;
+        this.referral = referral;
+        this.price = price;
+    }
+
+    public Doctor() {
+    }
 }

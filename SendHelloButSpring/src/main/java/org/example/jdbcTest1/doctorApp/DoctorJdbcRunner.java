@@ -1,32 +1,43 @@
 package org.example.jdbcTest1.doctorApp;
 
+import org.example.jdbcTest1.doctorApp.DAO.DoctorJdbcCRUD;
+import org.example.jdbcTest1.doctorApp.DAO.JdbcConnectionDAO;
+import org.example.jdbcTest1.doctorApp.DTO.DoctorDTO;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class DoctorJdbcRunner implements CommandLineRunner {
-    private final JdbcConnection jdbcConnection;
+    private final JdbcConnectionDAO jdbcCon;
 
-    public DoctorJdbcRunner(JdbcConnection jdbcConnection) {
-        this.jdbcConnection = jdbcConnection;
+    public DoctorJdbcRunner(JdbcConnectionDAO jdbcCon) {
+        this.jdbcCon = jdbcCon;
     }
 
 
     public static void main(String[] args) {
         SpringApplication.run(DoctorJdbcRunner.class, args);
+
+
     }
 
     @Override
     public void run(String... args) throws Exception {
-        jdbcConnection.insertInTable("Artiom", 1L, "Proctologist", 300);
-        jdbcConnection.insertInTable("Artiom", 2L, "Proctologist", 257);
-        jdbcConnection.insertInTable("Artiom", 3L, "Proctologist", 189);
-        jdbcConnection.insertInTable("Den", 4L, "Proctologist", 430);
-        jdbcConnection.insertInTable("Roma", 5L, "Proctologist", 250);
-        System.out.println("Inserted into doctor table");
-        for (var i : jdbcConnection.getTableContent()) {
-            System.out.println("this is "+i);
-        }
+        jdbcCon.createDoctor(new Doctor("Artiom", 1l,
+                "Proctologist", 300));
+        jdbcCon.createDoctor(new Doctor("Artiom", 2l,
+                "Proctologist", 200));
+        jdbcCon.createDoctor(new Doctor("Artiom", 3l,
+                "Proctologist", 500));
+        jdbcCon.createDoctor(new Doctor("Artiom", 4l,
+                "Proctologist", 140));
+        jdbcCon.createDoctor(new Doctor("Artiom", 5l,
+                "Proctologist", 200));
+
+        DoctorDTO filter = new DoctorDTO("Artiom", 4L, 1, 1);
+        jdbcCon.findByParameters(filter);
+
+
     }
 }
