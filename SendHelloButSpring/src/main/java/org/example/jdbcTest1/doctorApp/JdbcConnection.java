@@ -25,7 +25,7 @@ public class JdbcConnection {
                               int price) {
 
         String sqlQuery = "INSERT INTO doctor (doctorName, " +
-                "doctorIdentity," +
+                "doctorIdentityCode," +
                 "referral, " +
                 "price) values(?, ?, ?, ?)";
 
@@ -35,9 +35,8 @@ public class JdbcConnection {
 
     public List getTableContent() {
         String sqlQuery = "SELECT id, doctorName, doctorIdentityCode, referral, price FROM doctor";
-        List listOfDoctors = jdbcTemplate.queryForList(sqlQuery,
+        return jdbcTemplate.query(sqlQuery,
                 new DoctorMapped());
-        return listOfDoctors;
     }
 
 

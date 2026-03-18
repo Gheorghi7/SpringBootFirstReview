@@ -3,10 +3,6 @@ package org.example.jdbcTest1.doctorApp;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.jdbc.core.JdbcTemplate;
-
-import javax.sql.DataSource;
-import javax.xml.transform.Source;
 
 @SpringBootApplication
 public class DoctorJdbcRunner implements CommandLineRunner {
@@ -23,12 +19,14 @@ public class DoctorJdbcRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        jdbcConnection.insertInTable("Artiom", 00001L, "Proctologist", 300);
-        jdbcConnection.insertInTable("Artiom", 00002L, "Proctologist", 257);
-        jdbcConnection.insertInTable("Artiom", 00003L, "Proctologist", 189);
-        jdbcConnection.insertInTable("Den", 00004L, "Proctologist", 430);
-        jdbcConnection.insertInTable("Roma", 00005L, "Proctologist", 250);
+        jdbcConnection.insertInTable("Artiom", 1L, "Proctologist", 300);
+        jdbcConnection.insertInTable("Artiom", 2L, "Proctologist", 257);
+        jdbcConnection.insertInTable("Artiom", 3L, "Proctologist", 189);
+        jdbcConnection.insertInTable("Den", 4L, "Proctologist", 430);
+        jdbcConnection.insertInTable("Roma", 5L, "Proctologist", 250);
         System.out.println("Inserted into doctor table");
-        jdbcConnection.getTableContent().forEach(x -> System.out.println(x));
+        for (var i : jdbcConnection.getTableContent()) {
+            System.out.println("this is "+i);
+        }
     }
 }
