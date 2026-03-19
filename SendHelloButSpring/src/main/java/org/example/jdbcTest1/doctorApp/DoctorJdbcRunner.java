@@ -35,8 +35,8 @@ public class DoctorJdbcRunner implements CommandLineRunner {
         jdbcCon.createDoctor(new Doctor("Artiom", 5l,
                 "Proctologist", 200));
 
-        DoctorDTO filter = new DoctorDTO("Artiom", 4L, 1, 1);
-        jdbcCon.findByParameters(filter);
+        DoctorDTO filter = new DoctorDTO("Artiom", 4L, 5, 0);
+        System.out.println(jdbcCon.findByParameters(filter));
 
 
     }

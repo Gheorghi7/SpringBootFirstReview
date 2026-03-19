@@ -36,12 +36,7 @@ public class JdbcConnectionDAO implements DoctorJdbcCRUD {
                     SELECT id, doctorName, doctorIdentityCode, referral, price 
                     FROM doctor
             """;
-    private static final String SQL_FIND_BY_NAME_CODE = """
-                    SELECT id, doctorName, doctorIdentityCode, referral, price
-                    FROM doctor
-                    WHERE doctorName = ? AND id = ?
-                    LIMIT ? OFFSET ?
-            """;
+
 
     @Autowired
     public JdbcConnectionDAO(DataSource dataSource) {
@@ -82,7 +77,7 @@ public class JdbcConnectionDAO implements DoctorJdbcCRUD {
         parameters.add(doctorDTO.limit());
         parameters.add(doctorDTO.offset());
 
-        List list = jdbcTemplate.query(SQL_CREATE_DOCTOR + whereClause + " LIMIT ? OFFSET ?",
+        List list = jdbcTemplate.query(SQL_SELECT_DOCTOR + whereClause + " LIMIT ? OFFSET ?",
                 ps -> {
                     for (int i = 0; i < parameters.size(); i++) {
                         ps.setObject(i + 1, parameters.get(i));
