@@ -11,16 +11,21 @@ import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
-import java.util.stream.Collectors;
 
 @Service
-public class JdbcConnectionDAO implements DoctorJdbcCRUD {
+public class JdbcConnectionWithDao implements DoctorJdbcCRUDDao {
+    private static final JdbcConnectionWithDao INSTANCE = new JdbcConnectionWithDao();
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
 
     private static final String SQL_CREATE_DOCTOR = """
             INSERT INTO doctor (doctorName, doctorIdentityCode, referral, price)
             VALUES(?, ?, ?, ?)
+            """;
+    private static final String SQL_FIND_BY_ID = """
+                    SELECT id, doctorName, doctorIdentityCode, referral, price
+                    FROM doctor
+                    WHERE doctor.id = ?
             """;
     private static final String SQL_UPDATE_DOCTOR = """
                     UPDATE doctor
@@ -37,20 +42,31 @@ public class JdbcConnectionDAO implements DoctorJdbcCRUD {
                     FROM doctor
             """;
 
+    public static JdbcConnectionWithDao getInstance() {
+        return INSTANCE;
+    }
+
+    private JdbcConnectionWithDao() {
+    }
 
     @Autowired
-    public JdbcConnectionDAO(DataSource dataSource) {
+    public JdbcConnectionWithDao(DataSource dataSource) {
         this.dataSource = dataSource;
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     @Override
-    public  void createDoctor(Doctor doctor) {
+    public void createDoctor(Doctor doctor) {
         jdbcTemplate.update(SQL_CREATE_DOCTOR, doctor.getDoctorName(),
                 doctor.getDoctorIdentityCode(),
                 doctor.getReferral(),
                 doctor.getPrice());
         System.out.println("Doctor created successfully");
+    }
+
+    public List findByID(int id) {
+        List list = jdbcTemplate.query(SQL_FIND_BY_ID, new DoctorMapped());
+        return list;
     }
 
     public List findByParameters(DoctorDTO doctorDTO) {
@@ -104,9 +120,8 @@ public class JdbcConnectionDAO implements DoctorJdbcCRUD {
     }
 
     @Override
-    public List getDoctors() {
-        List query = jdbcTemplate.query(SQL_SELECT_DOCTOR, new DoctorMapped());
-        return query;
+    public List<Doctor> getDoctors() {
+        return jdbcTemplate.query(SQL_SELECT_DOCTOR, new DoctorMapped());
 
     }
 }

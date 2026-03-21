@@ -4,7 +4,7 @@ import org.example.jdbcTest1.doctorApp.Doctor;
 
 import java.util.List;
 
-public interface DoctorJdbcCRUD {
+public interface DoctorJdbcCRUDDao {
 
      void createDoctor(Doctor doctor);
 
@@ -12,5 +12,5 @@ public interface DoctorJdbcCRUD {
 
     void deleteDoctor(int id);
 
-    List<List> getDoctors();
+    List<Doctor> getDoctors();
 }
