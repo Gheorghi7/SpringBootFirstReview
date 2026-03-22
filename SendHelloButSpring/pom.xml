@@ -13,7 +13,9 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>SendHelloButSpring</name>
     <description>SendHelloButSpring</description>
+
     <url/>
+
     <repositories>
         <repository>
             <id>jitpack.io</id>
@@ -35,7 +37,13 @@
     <properties>
         <java.version>17</java.version>
     </properties>
+    <packaging>war</packaging>
+
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
         <!-- Базовый стартер Spring Boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -71,16 +79,14 @@
             <scope>test</scope>
         </dependency>
 
+
+
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>SendHelloButSpring</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+
     </dependencies>
 
 
@@ -92,5 +98,6 @@
             </plugin>
         </plugins>
     </build>
+
 
 </project>

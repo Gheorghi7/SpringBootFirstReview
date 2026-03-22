@@ -14,7 +14,6 @@ import java.util.StringJoiner;
 
 @Service
 public class JdbcConnectionWithDao implements DoctorJdbcCRUDDao {
-    private static final JdbcConnectionWithDao INSTANCE = new JdbcConnectionWithDao();
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
 
@@ -42,12 +41,8 @@ public class JdbcConnectionWithDao implements DoctorJdbcCRUDDao {
                     FROM doctor
             """;
 
-    public static JdbcConnectionWithDao getInstance() {
-        return INSTANCE;
-    }
 
-    private JdbcConnectionWithDao() {
-    }
+
 
     @Autowired
     public JdbcConnectionWithDao(DataSource dataSource) {
