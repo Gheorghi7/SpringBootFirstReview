@@ -1,5 +1,6 @@
 package org.example.jdbcTest1.doctorApp;
 
+import org.example.alternativeDoctorApp.Controller.DoctorController;
 import org.example.jdbcTest1.doctorApp.DAO.JdbcConnectionWithDao;
 import org.example.jdbcTest1.doctorApp.DTO.DoctorDTO;
 import org.springframework.boot.CommandLineRunner;
@@ -24,7 +25,6 @@ public class DoctorJdbcRunner  implements CommandLineRunner  {
 
     @Override
     public void run(String... args) throws Exception {
-
 
 
     }

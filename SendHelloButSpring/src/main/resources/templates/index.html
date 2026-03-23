@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List from DB</title>
+</head>
+<body>
+<h1>Doctor List:</h1>
+
+<ul>
+    <li th:each="doctor : ${doctors}">
+        <a th:text="${doctor.doctorName} + ' | ' + ${doctor.referral} + ' | ' + ${doctor.price}"
+           th:href="@{/doctor(id=${doctor.id})}">
+        </a>
+    </li>
+</ul>
+</body>
+</html>

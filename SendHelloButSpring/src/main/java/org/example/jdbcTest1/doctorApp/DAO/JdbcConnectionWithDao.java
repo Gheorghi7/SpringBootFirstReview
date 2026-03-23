@@ -59,10 +59,10 @@ public class JdbcConnectionWithDao implements DoctorJdbcCRUDDao {
         System.out.println("Doctor created successfully");
     }
 
-    public List findByID(int id) {
-        List list = jdbcTemplate.query(SQL_FIND_BY_ID, new DoctorMapped());
-        return list;
-    }
+//    public List findByID(int id) {
+//        List list = jdbcTemplate.query(SQL_FIND_BY_ID, new DoctorMapped());
+//        return list;
+//    }
 
     public List findByParameters(DoctorDTO doctorDTO) {
         List<Object> parameters = new ArrayList<>();
@@ -118,5 +118,8 @@ public class JdbcConnectionWithDao implements DoctorJdbcCRUDDao {
     public List<Doctor> getDoctors() {
         return jdbcTemplate.query(SQL_SELECT_DOCTOR, new DoctorMapped());
 
+    }
+    public List<Doctor> findByID(int id) {
+        return jdbcTemplate.query(SQL_FIND_BY_ID, new DoctorMapped(), id);
     }
 }

@@ -1,46 +1,38 @@
 package org.example.jdbcTest1.doctorApp.servlet;
 
-
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import org.example.jdbcTest1.doctorApp.DAO.JdbcConnectionWithDao;
+import org.example.jdbcTest1.doctorApp.Doctor;
 import org.example.jdbcTest1.doctorApp.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.context.WebApplicationContext;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+import java.util.Map;
+import java.util.TreeMap;
 
-@WebServlet("/doctorById")
-public class DoctorServlet extends HttpServlet {
 
-    private static DoctorService doctorService;
+@Controller
+class DoctorController {
+    @Autowired
+    private final DoctorService doctorService;
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-
-        resp.setContentType("text/html");
-        resp.setCharacterEncoding(StandardCharsets.UTF_8.name());
-
-        try (var writer = resp.getWriter()) {
-            writer.write("<h1>Doctor`s list</h1>");
-            writer.write("<ul>");
-
-            doctorService.getAllDoctorsByID().forEach(d ->
-                    writer.write("""
-                            <li>
-                                <a href="/doctorById?doctorId=%d">%s</a>
-                            </li>
-                            """.formatted(d.id(), d.description()))
-            );
-
-            writer.write("</ul>");
-        }
+    public DoctorController(DoctorService doctorService) {
+        this.doctorService = doctorService;
     }
+
+    @GetMapping("/doctorById")
+    public String getDoctors(
+            Model model
+    ) {
+        Map<Integer, String> map = new TreeMap<>();
+        doctorService.getAllDoctorsByID().stream().forEach(d -> map.put(d.id(), d.description()));
+        model.addAttribute("map", map);
+        return "index";
+    }
+
+
 }
 
 
